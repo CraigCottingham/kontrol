@@ -29,17 +29,19 @@ defmodule Hadi_2 do
     Control.activate_next_stage(state.control)
     Control.set_throttle(state.control, 1.0)
 
-    ascend_to(50.0, Flight.surface_altitude(state.flight), state)
+    ascend_to(10.0, Flight.surface_altitude(state.flight), state)
     coast_to_max(Flight.vertical_speed(state.flight), state)
     hover(state)
     descend_until(Vessel.situation(state.vessel), state)
+
+    Control.set_throttle(state.control, 0.0)
   end
 
-  defp ascend_to(target_altitude, altitude, %{control: control, flight: flight} = state) when (altitude >= target_altitude), do: Control.set_throttle(control, 0.0)
-  defp ascend_to(target_altitude, _altitude, %{control: _control, flight: flight} = state), do: ascend_to(target_altitude, Flight.surface_altitude(flight), state)
+  defp ascend_to(target_altitude, altitude, %{control: control}) when (altitude >= target_altitude), do: Control.set_throttle(control, 0.0)
+  defp ascend_to(target_altitude, _altitude, %{flight: flight} = state), do: ascend_to(target_altitude, Flight.surface_altitude(flight), state)
 
-  defp coast_to_max(vertical_speed, %{control: _control} = state) when (vertical_speed < 0.0), do: Process.send_after(self(), :descend, 10_000)
-  defp coast_to_max(_, %{control: _control, flight: flight} = state), do: coast_to_max(Flight.vertical_speed(flight), state)
+  defp coast_to_max(vertical_speed, _state) when (vertical_speed < 0.0), do: Process.send_after(self(), :descend, 10_000)
+  defp coast_to_max(_, %{flight: flight} = state), do: coast_to_max(Flight.vertical_speed(flight), state)
 
   defp descend_until(:landed, _), do: :ok
 
