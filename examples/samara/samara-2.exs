@@ -78,6 +78,7 @@ defmodule Hadi_2 do
   defp descend_until_landed(%{control: control, flight: flight, descent_controller: controller} = state) do
     receive do
       {:is_grounded, true, _} ->
+        Control.set_throttle(control, 0.0)
         :ok
 
     after

@@ -5,16 +5,20 @@
 
 ## EXAMPLES
 
-### "Hadi" Series
+### "Samara" Series
 
-The Hadi vehicle is about as simple as possible -- an engine, tankage, legs, and a control core.
+The Samara vehicle is about as simple as possible -- an engine, tankage, legs, and a control core.
 
-#### Hadi-1
+#### Samara-1
+
+    mix run examples/samara/samara-1.exs
 
 * test throttle control
 * test load sensing on legs
 
-#### Hadi-2
+#### Samara-2
+
+    mix run examples/samara/samara-2.exs
 
 * test throttle control
   * surface altitude to 10 meters
@@ -22,7 +26,7 @@ The Hadi vehicle is about as simple as possible -- an engine, tankage, legs, and
   * hover for 10 seconds
   * descend at 1 m/s until landing
 
-#### Hadi-(n)
+#### Samara-(n)
 
 * test inertial navigation system
 * telemetry:
