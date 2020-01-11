@@ -1,6 +1,6 @@
 ESpec.configure(fn config ->
-  config.before(fn tags ->
-    {:shared, hello: :world, tags: tags}
+  config.before(fn _tags ->
+    :ok
   end)
 
   config.finally(fn _shared ->
